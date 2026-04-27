@@ -1,0 +1,24 @@
+from sqlalchemy import Boolean, Column, Integer, String, func, ForeignKey
+from sqlalchemy.orm import relationship, Mapped, mapped_column
+from datetime import datetime
+
+from backend.app.models.task import Task
+from backend.app.models.user import User
+
+from ..database import Base
+
+class Attempt(Base):
+    __tablename__ = "attempts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    task_id: Mapped[int] = mapped_column(Integer, nullable=False)
+    user_answer: Mapped[str] = mapped_column(String, nullable=False)
+    is_correct: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(default=func.now())
+    is_correct: Mapped[bool] = mapped_column(default=False)
+    created_at: Mapped[datetime] = mapped_column(default=func.now())
+
+    task_id: Mapped[int] = mapped_column(ForeignKey("tasks.id"), nullable=False)
+    task: Mapped["Task"] = relationship("Task", back_populates="attempts")
+    user: Mapped["User"] = relationship("User", back_populates="attempts")
