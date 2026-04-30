@@ -1,6 +1,11 @@
-from sqlalchemy import Integer, String, Column, Text, func
+from sqlalchemy import Integer, String, Column, Text, func, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .topic import Topic
+    from .attempt import Attempt
 
 from ..database import Base
 
@@ -17,3 +22,7 @@ class Task(Base):
     difficulty: Mapped[str] = mapped_column(String, default="medium")  # easy, medium, hard
     is_active: Mapped[bool] = mapped_column(default=True)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
+
+    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"), nullable=False)
+    topic: Mapped["Topic"] = relationship("Topic", back_populates="tasks")
+    attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="task", cascade="all, delete-orphan")

@@ -2,7 +2,9 @@ from sqlalchemy import Integer, String, Column, func, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
 
-from backend.app.models.attempt import Attempt
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .attempt import Attempt
 
 from ..database import Base
 

@@ -2,7 +2,10 @@ from sqlalchemy import Integer, String, Column, func, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
 
-from backend.app.models.subject import Subject
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .subject import Subject
+    from .task import Task
 
 from ..database import Base
 
@@ -18,5 +21,6 @@ class Topic(Base):
     created_at: Mapped[datetime] = mapped_column(default=func.now())
     difficulty: Mapped[str] = mapped_column(String, default="medium")  # easy, medium, hard
 
-    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), nullable=False)
+    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), nullable=False, ondelete="CASCADE")
     subject: Mapped["Subject"] = relationship("Subject", back_populates="topics")
+    tasks: Mapped[list["Task"]] = relationship("Task", back_populates="topic", cascade="all, delete-orphan")

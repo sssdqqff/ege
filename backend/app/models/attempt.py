@@ -2,8 +2,10 @@ from sqlalchemy import Boolean, Column, Integer, String, func, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
 
-from backend.app.models.task import Task
-from backend.app.models.user import User
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .user import User
+    from .task import Task
 
 from ..database import Base
 
