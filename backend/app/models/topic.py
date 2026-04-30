@@ -21,7 +21,7 @@ class Topic(Base):
     created_at: Mapped[datetime] = mapped_column(default=func.now())
     difficulty: Mapped[str] = mapped_column(String, default="medium")  # easy, medium, hard
 
-    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), nullable=False, ondelete="CASCADE")
+    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
     subject: Mapped["Subject"] = relationship("Subject", back_populates="topics")
     
     tasks: Mapped[list["Task"]] = relationship("Task", back_populates="topic", cascade="all, delete-orphan")

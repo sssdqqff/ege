@@ -22,10 +22,10 @@ class Task(Base):
     is_active: Mapped[bool] = mapped_column(default=True)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
 
-    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"), nullable=False, ondelete="CASCADE")
+    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id", ondelete="CASCADE"),nullable=False)
     topic: Mapped["Topic"] = relationship("Topic", back_populates="tasks")
     
-    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), nullable=False, ondelete="CASCADE")
+    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
     subject: Mapped["Subject"] = relationship("Subject", back_populates="tasks")
 
     attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="task", cascade="all, delete-orphan")
