@@ -7,7 +7,6 @@ from fastapi import HTTPException, status
 class SubjectService:
     def __init__(self, db: AsyncSession):
         self.subject_repository = SubjectRepository(db)
-        self.db = db
 
     async def get_all_subjects(self) -> List[SubjectResponse]:
         subjects = await self.subject_repository.get_all_subjects()
