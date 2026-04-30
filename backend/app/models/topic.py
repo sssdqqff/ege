@@ -23,4 +23,5 @@ class Topic(Base):
 
     subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"), nullable=False, ondelete="CASCADE")
     subject: Mapped["Subject"] = relationship("Subject", back_populates="topics")
+    
     tasks: Mapped[list["Task"]] = relationship("Task", back_populates="topic", cascade="all, delete-orphan")

@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .topic import Topic
+    from .task import Task
 
 from ..database import Base
 
@@ -20,3 +21,5 @@ class Subject(Base):
     created_at: Mapped[datetime] = mapped_column(default=func.now())
 
     topics: Mapped[list["Topic"]] = relationship("Topic", back_populates="subject", cascade="all, delete-orphan")
+    
+    tasks: Mapped[list["Task"]] = relationship("Task", back_populates="subject", cascade="all, delete-orphan")
