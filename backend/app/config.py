@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     app_name: str = "My Awesome App"
     debug_mode: bool = True
-    database_url: str = "sqlite:///./ege.db"
+    database_url: str 
     cors_origins: list = [
         "http://localhost:5173",
         "http://localhost:3000",

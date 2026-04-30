@@ -4,7 +4,7 @@ from .config import settings
 
 engine = create_async_engine(
     settings.database_url,
-    echo=True  # можно убрать в проде
+    echo=True
 )
 
 AsyncSessionLocal = sessionmaker(
@@ -14,3 +14,7 @@ AsyncSessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
+async def get_db():
+    async with AsyncSessionLocal() as session:
+        yield session
