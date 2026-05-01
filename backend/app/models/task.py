@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, Column, Text, func, ForeignKey
+from sqlalchemy import Integer, String, Text, func, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
 
@@ -14,18 +14,15 @@ class Task(Base):
     __tablename__ = "tasks"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    title: Mapped[str] = mapped_column(String, index=True, nullable=False)
     condition: Mapped[str] = mapped_column(Text, nullable=False)
     answer: Mapped[str] = mapped_column(String, nullable=False)
-    answer_type: Mapped[str] = mapped_column(String)
+    solution: Mapped[str] = mapped_column(Text, nullable=True)
     difficulty: Mapped[str] = mapped_column(String, default="medium")  # easy, medium, hard
     is_active: Mapped[bool] = mapped_column(default=True)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
+    task_type: Mapped[str] = mapped_column(String, default="test")  #test, full
 
     topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id", ondelete="CASCADE"),nullable=False)
     topic: Mapped["Topic"] = relationship("Topic", back_populates="tasks")
     
-    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
-    subject: Mapped["Subject"] = relationship("Subject", back_populates="tasks")
-
     attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="task", cascade="all, delete-orphan")

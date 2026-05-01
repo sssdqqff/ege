@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .attempt import Attempt
+    from .session import Session
 
 from ..database import Base
 
@@ -28,3 +29,5 @@ class User(Base):
     role: Mapped[str] = mapped_column(String, default="user")
 
     attempts: Mapped[list["Attempt"]] = relationship("Attempt", back_populates="user", cascade="all, delete-orphan")
+
+    sessions: Mapped[list["Session"]] = relationship("Session", back_populates="user", cascade="all, delete-orphan")
