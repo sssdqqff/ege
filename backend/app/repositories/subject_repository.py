@@ -3,8 +3,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from typing import List, Optional
-from ..models import Subject
-from ..schemas import SubjectCreate, SubjectUpdate
+from app.models.subject import Subject
+from app.schemas.subject import SubjectCreate, SubjectUpdate
 
 class SubjectRepository:
     def __init__(self, db: AsyncSession):

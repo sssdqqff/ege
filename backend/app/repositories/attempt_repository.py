@@ -3,8 +3,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from typing import List, Optional
-from ..models import Attempt
-from ..schemas import AttemptCreate, AttemptUpdate
+from app.models.attempt import Attempt
+from app.schemas.attempt import AttemptCreate
 
 class AttemptRepository:
     def __init__(self, db: AsyncSession):

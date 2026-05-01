@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from ..repositories.task_repository import TaskRepository
-from ..schemas import TaskCreate, TaskUpdate, TaskResponse
+from app.repositories.task_repository import TaskRepository
+from app.schemas.task import TaskCreate, TaskUpdate, TaskResponse
 from fastapi import HTTPException, status
 
 class TaskService:

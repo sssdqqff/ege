@@ -3,8 +3,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from typing import List, Optional
-from ..models import Task
-from ..schemas import TaskCreate, TaskUpdate
+from app.models.task import Task
+from app.schemas.task import TaskCreate, TaskUpdate
 
 class TaskRepository:
     def __init__(self, db: AsyncSession):

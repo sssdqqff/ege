@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from ..repositories.topic_repository import TopicRepository
-from ..schemas import TopicCreate, TopicUpdate, TopicResponse
+from app.repositories.topic_repository import TopicRepository
+from app.schemas.topic import TopicCreate, TopicUpdate, TopicResponse
 from fastapi import HTTPException, status
 
 class TopicService:

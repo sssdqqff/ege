@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from ..repositories.subject_repository import SubjectRepository
-from ..schemas import SubjectCreate, SubjectUpdate, SubjectResponse
+from app.repositories.subject_repository import SubjectRepository
+from app.schemas.subject import SubjectCreate, SubjectUpdate, SubjectResponse
 from fastapi import HTTPException, status
 
 class SubjectService:

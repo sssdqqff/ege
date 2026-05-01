@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from ..repositories.attempt_repository import AttemptRepository
-from ..schemas import AttemptCreate, AttemptUpdate, AttemptResponse
+from app.repositories.attempt_repository import AttemptRepository
+from app.schemas.attempt import AttemptCreate, AttemptUpdate, AttemptResponse
 from fastapi import HTTPException, status
 
 class AttemptService:

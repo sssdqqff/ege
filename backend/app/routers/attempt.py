@@ -2,27 +2,27 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from ..database import get_db
-from ..services import AttemptService
-from ..schemas import AttekmptResponse, AttemptCreate, AttemptUpdate
+from app.services.attempt_service import AttemptService
+from app.schemas.attempt import AttemptResponse, AttemptCreate, AttemptUpdate
 
 router = APIRouter(prefix="/attempts", tags=["attempts"])
 
 def get_attempt_service(db: AsyncSession = Depends(get_db)):
     return AttemptService(db)
 
-@router.get("", response_model=List[AttekmptResponse], status_code=status.HTTP_200_OK)
+@router.get("", response_model=List[AttemptResponse], status_code=status.HTTP_200_OK)
 async def get_all_attempts(service: AttemptService = Depends(get_attempt_service)):
     return await service.get_all_attempts()
 
-@router.get("/{attempt_id}", response_model=AttekmptResponse, status_code=status.HTTP_200_OK)
+@router.get("/{attempt_id}", response_model=AttemptResponse, status_code=status.HTTP_200_OK)
 async def get_attempt_by_id(attempt_id: int, service: AttemptService = Depends(get_attempt_service)):
     return await service.get_attempt_by_id(attempt_id)
 
-@router.post("", response_model=AttekmptResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=AttemptResponse, status_code=status.HTTP_201_CREATED)
 async def create_attempt(attempt_data: AttemptCreate, service: AttemptService = Depends(get_attempt_service)):
     return await service.create_attempt(attempt_data)
 
-@router.put("/{attempt_id}", response_model=AttekmptResponse, status_code=status.HTTP_200_OK)
+@router.put("/{attempt_id}", response_model=AttemptResponse, status_code=status.HTTP_200_OK)
 async def update_attempt(attempt_id: int, attempt_data: AttemptUpdate, service: AttemptService = Depends(get_attempt_service)):
     return await service.update_attempt(attempt_id, attempt_data)
 

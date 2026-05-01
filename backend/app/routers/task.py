@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from ..database import get_db
-from ..services import TaskService
-from ..schemas import TaskResponse, TaskCreate, TaskUpdate
+from app.services.task_service import TaskService
+from app.schemas.task import TaskResponse, TaskCreate, TaskUpdate
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
