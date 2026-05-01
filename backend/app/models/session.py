@@ -14,8 +14,8 @@ class Session(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     type: Mapped[str] = mapped_column(String, nullable=False, default="practice")  #exam, challenge. practice
-    created_at: Mapped[datetime] = mapped_column(default=func.now())
-    finished_at: Mapped[datetime] = mapped_column(nullable=True)
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
+    finished_at: Mapped[datetime | None] = mapped_column(default=None)
     status: Mapped[str] = mapped_column(String, default="in_progress")  #completed, in_progress, abandoned
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)

@@ -19,7 +19,7 @@ class Task(Base):
     solution: Mapped[str] = mapped_column(Text, nullable=True)
     difficulty: Mapped[str] = mapped_column(String, default="medium")  # easy, medium, hard
     is_active: Mapped[bool] = mapped_column(default=True)
-    created_at: Mapped[datetime] = mapped_column(default=func.now())
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
     task_type: Mapped[str] = mapped_column(String, default="test")  #test, full
 
     topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id", ondelete="CASCADE"),nullable=False)
