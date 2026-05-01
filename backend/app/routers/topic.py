@@ -1,0 +1,31 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List
+from ..database import get_db
+from ..services import TopicService
+from ..schemas import TopicCreate, TopicUpdate, TopicResponse
+
+router = APIRouter(prefix="/topics", tags=["topics"])
+
+def get_topic_service(db: AsyncSession = Depends(get_db)):
+    return TopicService(db)
+
+@router.get("", response_model=List[TopicResponse], status_code=status.HTTP_200_OK)
+async def get_all_topics(service: TopicService = Depends(get_topic_service)):
+    return await service.get_all_topics()
+
+@router.get("/{topic_id}", response_model=TopicResponse, status_code=status.HTTP_200_OK)
+async def get_topic_by_id(topic_id: int, service: TopicService = Depends(get_topic_service)):
+    return await service.get_topic_by_id(topic_id)
+
+@router.post("", response_model=TopicResponse, status_code=status.HTTP_201_CREATED)
+async def create_topic(topic_data: TopicCreate, service: TopicService = Depends(get_topic_service)):
+    return await service.create_topic(topic_data)
+
+@router.put("/{topic_id}", response_model=TopicResponse, status_code=status.HTTP_200_OK)
+async def update_topic(topic_id: int, topic_data: TopicUpdate, service: TopicService = Depends(get_topic_service)):
+    return await service.update_topic(topic_id, topic_data)
+
+@router.delete("/{topic_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_topic(topic_id: int, service: TopicService = Depends(get_topic_service)):
+    await service.delete_topic(topic_id)
