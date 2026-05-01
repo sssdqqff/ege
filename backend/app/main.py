@@ -6,7 +6,7 @@ from .routers import subject_router, topic_router, task_router, attempt_router, 
 
 app = FastAPI(
     title="EGE API",
-    debug=settings.DEBUG,
+    debug=settings.debug_mode,
 )
 
 app.add_middleware(
@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-app.mount("/static", StaticFiles(directory=settings.STATIC_DIR), name="static")
+app.mount("/static", StaticFiles(directory=settings.static_dir), name="static")
 
 app.include_router(subject_router)
 app.include_router(topic_router)
